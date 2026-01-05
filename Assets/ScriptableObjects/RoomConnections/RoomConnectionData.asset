@@ -1,0 +1,131 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b72ea9ac5814b804683ffbf56481082c, type: 3}
+  m_Name: RoomConnectionData
+  m_EditorClassIdentifier: Assembly-CSharp::ScriptableObjects.RoomConnectionData
+  _connectionRules:
+  - _roomType: 14
+    _connectsTo: 0600000010000000
+    _countRestrictions:
+    - _restrictedRoomType: 6
+      _maxAdjacentCount: 4
+    _chainExclusions:
+    - _excludedRoomType: 3
+  - _roomType: 3
+    _connectsTo: 0600000010000000
+    _countRestrictions:
+    - _restrictedRoomType: 6
+      _maxAdjacentCount: 4
+    _chainExclusions:
+    - _excludedRoomType: 14
+  - _roomType: 6
+    _connectsTo: 03000000100000000b0000000e00000002000000
+    _countRestrictions:
+    - _restrictedRoomType: 14
+      _maxAdjacentCount: 1
+    - _restrictedRoomType: 2
+      _maxAdjacentCount: 1
+    - _restrictedRoomType: 11
+      _maxAdjacentCount: 1
+    - _restrictedRoomType: 3
+      _maxAdjacentCount: 4
+    _chainExclusions: []
+  - _roomType: 2
+    _connectsTo: 06000000100000000a00000000000000
+    _countRestrictions:
+    - _restrictedRoomType: 6
+      _maxAdjacentCount: 4
+    - _restrictedRoomType: 0
+      _maxAdjacentCount: 1
+    - _restrictedRoomType: 10
+      _maxAdjacentCount: 4
+    _chainExclusions: []
+  - _roomType: 10
+    _connectsTo: 020000000800000010000000
+    _countRestrictions:
+    - _restrictedRoomType: 2
+      _maxAdjacentCount: 4
+    - _restrictedRoomType: 8
+      _maxAdjacentCount: 4
+    _chainExclusions: []
+  - _roomType: 7
+    _connectsTo: 10000000
+    _countRestrictions:
+    - _restrictedRoomType: 12
+      _maxAdjacentCount: 4
+    - _restrictedRoomType: 9
+      _maxAdjacentCount: 1
+    - _restrictedRoomType: 16
+      _maxAdjacentCount: 4
+    _chainExclusions: []
+  - _roomType: 8
+    _connectsTo: 0a00000010000000
+    _countRestrictions:
+    - _restrictedRoomType: 10
+      _maxAdjacentCount: 4
+    _chainExclusions: []
+  - _roomType: 11
+    _connectsTo: 050000000600000010000000
+    _countRestrictions:
+    - _restrictedRoomType: 5
+      _maxAdjacentCount: 4
+    - _restrictedRoomType: 6
+      _maxAdjacentCount: 4
+    _chainExclusions: []
+  - _roomType: 5
+    _connectsTo: 0b00000010000000
+    _countRestrictions:
+    - _restrictedRoomType: 11
+      _maxAdjacentCount: 4
+    _chainExclusions: []
+  - _roomType: 0
+    _connectsTo: 020000000c00000010000000
+    _countRestrictions:
+    - _restrictedRoomType: 2
+      _maxAdjacentCount: 4
+    - _restrictedRoomType: 12
+      _maxAdjacentCount: 4
+    _chainExclusions: []
+  - _roomType: 12
+    _connectsTo: 00000000090000000400000010000000
+    _countRestrictions:
+    - _restrictedRoomType: 9
+      _maxAdjacentCount: 1
+    - _restrictedRoomType: 4
+      _maxAdjacentCount: 4
+    - _restrictedRoomType: 0
+      _maxAdjacentCount: 4
+    _chainExclusions: []
+  - _roomType: 4
+    _connectsTo: 090000000c00000010000000
+    _countRestrictions:
+    - _restrictedRoomType: 12
+      _maxAdjacentCount: 1
+    - _restrictedRoomType: 9
+      _maxAdjacentCount: 1
+    _chainExclusions: []
+  - _roomType: 9
+    _connectsTo: 040000000c00000010000000
+    _countRestrictions:
+    - _restrictedRoomType: 12
+      _maxAdjacentCount: 4
+    - _restrictedRoomType: 4
+      _maxAdjacentCount: 4
+    _chainExclusions: []
+  - _roomType: 13
+    _connectsTo: 10000000
+    _countRestrictions: []
+    _chainExclusions: []
+  - _roomType: 16
+    _connectsTo: 10000000
+    _countRestrictions: []
+    _chainExclusions: []
