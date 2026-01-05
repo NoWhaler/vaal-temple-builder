@@ -20,6 +20,7 @@ namespace Grid
         private ConnectionValidationService _connectionValidationService;
         private UIVisualFeedbackService _visualFeedbackService;
         private UniqueRoomService _uniqueRoomService;
+        private RoomConnectionService _roomConnectionService;
         private Transform _parent;
 
         public GridCellPresenter(
@@ -30,6 +31,7 @@ namespace Grid
             ConnectionValidationService connectionValidationService,
             UIVisualFeedbackService visualFeedbackService,
             UniqueRoomService uniqueRoomService,
+            RoomConnectionService roomConnectionService,
             Transform parent)
         {
             _model = model;
@@ -39,6 +41,7 @@ namespace Grid
             _connectionValidationService = connectionValidationService;
             _visualFeedbackService = visualFeedbackService;
             _uniqueRoomService = uniqueRoomService;
+            _roomConnectionService = roomConnectionService;
             _parent = parent;
         }
 
@@ -218,6 +221,38 @@ namespace Grid
 
             int validRoomTypeCount = CountValidRoomTypes();
             _view.SetConnectionCount(validRoomTypeCount);
+        }
+
+        public void UpdateConnectionLines()
+        {
+            if (!_view.HasRoom)
+            {
+                _view.HideAllConnectionLines();
+                return;
+            }
+
+            UpdateConnectionLineForDirection(ConnectionDirection.North, -1, 0);
+            UpdateConnectionLineForDirection(ConnectionDirection.South, 1, 0);
+            UpdateConnectionLineForDirection(ConnectionDirection.East, 0, 1);
+            UpdateConnectionLineForDirection(ConnectionDirection.West, 0, -1);
+        }
+
+        private void UpdateConnectionLineForDirection(ConnectionDirection direction, int offsetX, int offsetY)
+        {
+            int adjacentX = _model.X + offsetX;
+            int adjacentY = _model.Y + offsetY;
+
+            RoomType? currentRoomType = _gridStateService.GetRoom(_model.X, _model.Y);
+            RoomType? adjacentRoomType = _gridStateService.GetRoom(adjacentX, adjacentY);
+
+            if (!currentRoomType.HasValue || !adjacentRoomType.HasValue)
+            {
+                _view.SetConnectionLineVisible(direction, false);
+                return;
+            }
+
+            bool canConnect = _roomConnectionService.CanConnect(currentRoomType.Value, adjacentRoomType.Value);
+            _view.SetConnectionLineVisible(direction, canConnect);
         }
 
         private int CountValidRoomTypes()

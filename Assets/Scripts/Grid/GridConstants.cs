@@ -14,5 +14,8 @@ namespace Grid
         public const string PathSpritePath = "Sprites/Rooms/IconPath";
 
         public static readonly RoomType[] UniqueRoomTypes = { RoomType.Architect, RoomType.SacrificialChamber };
+
+        public const float ConnectionLineWidth = 4f;
+        public const float ConnectionLineLength = 20f;
     }
 }

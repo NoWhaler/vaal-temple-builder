@@ -18,6 +18,7 @@ namespace Grid
         private ConnectionValidationService _connectionValidationService;
         private UIVisualFeedbackService _visualFeedbackService;
         private UniqueRoomService _uniqueRoomService;
+        private RoomConnectionService _roomConnectionService;
 
         private GridModel _gridModel;
         private GridView _gridView;
@@ -32,7 +33,8 @@ namespace Grid
             GridStateService gridStateService,
             ConnectionValidationService connectionValidationService,
             UIVisualFeedbackService visualFeedbackService,
-            UniqueRoomService uniqueRoomService)
+            UniqueRoomService uniqueRoomService,
+            RoomConnectionService roomConnectionService)
         {
             _prefabContainer = prefabContainer;
             _uiRootProvider = uiRootProvider;
@@ -41,6 +43,7 @@ namespace Grid
             _connectionValidationService = connectionValidationService;
             _visualFeedbackService = visualFeedbackService;
             _uniqueRoomService = uniqueRoomService;
+            _roomConnectionService = roomConnectionService;
         }
 
         public void Initialize()
@@ -51,6 +54,7 @@ namespace Grid
             GenerateGrid();
             SubscribeToEvents();
             UpdateAllConnectionCounts();
+            UpdateAllConnectionLines();
         }
 
         public void Dispose()
@@ -120,6 +124,7 @@ namespace Grid
                 _connectionValidationService,
                 _visualFeedbackService,
                 _uniqueRoomService,
+                _roomConnectionService,
                 _gridView.CellContainer
             );
 
@@ -157,6 +162,7 @@ namespace Grid
         private void HandleGridStateChanged()
         {
             UpdateAllConnectionCounts();
+            UpdateAllConnectionLines();
         }
 
         private void UpdateAllConnectionCounts()
@@ -164,6 +170,14 @@ namespace Grid
             foreach (GridCellPresenter cellPresenter in _gridCellPresenters)
             {
                 cellPresenter.UpdateConnectionCount();
+            }
+        }
+
+        private void UpdateAllConnectionLines()
+        {
+            foreach (GridCellPresenter cellPresenter in _gridCellPresenters)
+            {
+                cellPresenter.UpdateConnectionLines();
             }
         }
     }

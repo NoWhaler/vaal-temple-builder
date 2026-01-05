@@ -12,6 +12,12 @@ namespace Grid
         [SerializeField] private Image _frameImage;
         [SerializeField] private TMP_Text _connectionCountText;
 
+        [Header("Connection Lines")]
+        [SerializeField] private Image _connectionLineNorth;
+        [SerializeField] private Image _connectionLineSouth;
+        [SerializeField] private Image _connectionLineEast;
+        [SerializeField] private Image _connectionLineWest;
+
         public event Action<PointerEventData.InputButton> OnCellClicked;
         public event Action OnCellHoverEnter;
         public event Action OnCellHoverExit;
@@ -95,6 +101,35 @@ namespace Grid
         public void OnPointerExit(PointerEventData eventData)
         {
             OnCellHoverExit?.Invoke();
+        }
+
+        public void SetConnectionLineVisible(ConnectionDirection direction, bool visible)
+        {
+            Image connectionLine = GetConnectionLineImage(direction);
+
+            if (connectionLine == null) return;
+
+            connectionLine.gameObject.SetActive(visible);
+        }
+
+        public void HideAllConnectionLines()
+        {
+            SetConnectionLineVisible(ConnectionDirection.North, false);
+            SetConnectionLineVisible(ConnectionDirection.South, false);
+            SetConnectionLineVisible(ConnectionDirection.East, false);
+            SetConnectionLineVisible(ConnectionDirection.West, false);
+        }
+
+        private Image GetConnectionLineImage(ConnectionDirection direction)
+        {
+            return direction switch
+            {
+                ConnectionDirection.North => _connectionLineNorth,
+                ConnectionDirection.South => _connectionLineSouth,
+                ConnectionDirection.East => _connectionLineEast,
+                ConnectionDirection.West => _connectionLineWest,
+                _ => null
+            };
         }
     }
 }
