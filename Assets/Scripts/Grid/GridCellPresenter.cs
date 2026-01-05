@@ -18,6 +18,7 @@ namespace Grid
         private RoomSelectionService _roomSelectionService;
         private GridStateService _gridStateService;
         private ConnectionValidationService _connectionValidationService;
+        private UIVisualFeedbackService _visualFeedbackService;
         private Transform _parent;
 
         public GridCellPresenter(
@@ -26,6 +27,7 @@ namespace Grid
             RoomSelectionService roomSelectionService,
             GridStateService gridStateService,
             ConnectionValidationService connectionValidationService,
+            UIVisualFeedbackService visualFeedbackService,
             Transform parent)
         {
             _model = model;
@@ -33,6 +35,7 @@ namespace Grid
             _roomSelectionService = roomSelectionService;
             _gridStateService = gridStateService;
             _connectionValidationService = connectionValidationService;
+            _visualFeedbackService = visualFeedbackService;
             _parent = parent;
         }
 
@@ -98,7 +101,11 @@ namespace Grid
         {
             if (_view == null) return;
 
+            _visualFeedbackService.RegisterElement(_view.transform, _view.FrameImage);
+
             _view.OnCellClicked += HandleCellClick;
+            _view.OnCellHoverEnter += HandleCellHoverEnter;
+            _view.OnCellHoverExit += HandleCellHoverExit;
         }
 
         private void UnsubscribeFromViewEvents()
@@ -106,6 +113,10 @@ namespace Grid
             if (_view == null) return;
 
             _view.OnCellClicked -= HandleCellClick;
+            _view.OnCellHoverEnter -= HandleCellHoverEnter;
+            _view.OnCellHoverExit -= HandleCellHoverExit;
+
+            _visualFeedbackService.UnregisterElement(_view.transform);
         }
 
         private void HandleCellClick(PointerEventData.InputButton button)
@@ -210,6 +221,16 @@ namespace Grid
             }
 
             return count;
+        }
+
+        private void HandleCellHoverEnter()
+        {
+            _visualFeedbackService.SetHovered(_view.transform, true);
+        }
+
+        private void HandleCellHoverExit()
+        {
+            _visualFeedbackService.SetHovered(_view.transform, false);
         }
     }
 }

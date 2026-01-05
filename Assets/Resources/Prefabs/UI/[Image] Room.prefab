@@ -332,4 +332,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::VaalTempleBuilder.RoomView
   _roomType: 0
   _roomIcon: {fileID: 8339824495632381978}
+  _frameImage: {fileID: 3368423243653670922}
   _roomButton: {fileID: 11025336101886880}

@@ -168,6 +168,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::VaalTempleBuilder.GridCellView
   _roomImage: {fileID: 6416520424484672800}
+  _frameImage: {fileID: 767308323448804672}
   _connectionCountText: {fileID: 6997847795562054447}
 --- !u!1 &4361362564255699740
 GameObject:

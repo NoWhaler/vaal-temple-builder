@@ -6,16 +6,20 @@ using UnityEngine.UI;
 
 namespace Grid
 {
-    public class GridCellView : MonoBehaviour, IPointerClickHandler
+    public class GridCellView : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
     {
         [SerializeField] private Image _roomImage;
+        [SerializeField] private Image _frameImage;
         [SerializeField] private TMP_Text _connectionCountText;
 
         public event Action<PointerEventData.InputButton> OnCellClicked;
+        public event Action OnCellHoverEnter;
+        public event Action OnCellHoverExit;
 
         private bool _hasRoom;
 
         public bool HasRoom => _hasRoom;
+        public Image FrameImage => _frameImage;
 
         public void Initialize()
         {
@@ -81,6 +85,16 @@ namespace Grid
         public void OnPointerClick(PointerEventData eventData)
         {
             OnCellClicked?.Invoke(eventData.button);
+        }
+
+        public void OnPointerEnter(PointerEventData eventData)
+        {
+            OnCellHoverEnter?.Invoke();
+        }
+
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            OnCellHoverExit?.Invoke();
         }
     }
 }

@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbdf471405dda9142aa1ef9b6c65ac31, type: 3}
+  m_Name: UIVisualSettings
+  m_EditorClassIdentifier: Assembly-CSharp::ScriptableObjects.UIVisualSettings
+  _defaultColor: {r: 1, g: 1, b: 1, a: 1}
+  _hoverColor: {r: 1, g: 0.784, b: 0.243, a: 1}
+  _selectionColor: {r: 0.682, g: 0.176, b: 0.176, a: 1}
+  _colorTransitionDuration: 0.2
+  _scaleTransitionDuration: 0.15
+  _hoverScaleIncrease: 0.1
+  _selectionScaleIncrease: 0.08

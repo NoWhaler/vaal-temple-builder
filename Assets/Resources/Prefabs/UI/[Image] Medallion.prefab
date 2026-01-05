@@ -212,6 +212,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Medallions.MedallionView
   _medallionType: 0
   _medallionIcon: {fileID: 619432417263826030}
+  _frameImage: {fileID: 1069541213920990562}
   _medallionButton: {fileID: 104091412232660297}
 --- !u!1 &7912029627458186998
 GameObject:
