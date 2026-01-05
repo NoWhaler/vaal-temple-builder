@@ -1,3 +1,5 @@
+using Enums;
+
 namespace Grid
 {
     public static class GridConstants
@@ -10,5 +12,7 @@ namespace Grid
         public const int StartCellX = 8;
         public const int StartCellY = 4;
         public const string PathSpritePath = "Sprites/Rooms/IconPath";
+
+        public static readonly RoomType[] UniqueRoomTypes = { RoomType.Architect, RoomType.SacrificialChamber };
     }
 }

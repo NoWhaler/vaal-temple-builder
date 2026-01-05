@@ -15,6 +15,7 @@ namespace Installers
             Container.Bind<GridStateService>().AsSingle().NonLazy();
             Container.Bind<RoomConnectionService>().AsSingle().NonLazy();
             Container.Bind<ConnectionValidationService>().AsSingle().NonLazy();
+            Container.Bind<UniqueRoomService>().AsSingle().NonLazy();
         }
     }
 }

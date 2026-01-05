@@ -17,6 +17,7 @@ namespace Grid
         private GridStateService _gridStateService;
         private ConnectionValidationService _connectionValidationService;
         private UIVisualFeedbackService _visualFeedbackService;
+        private UniqueRoomService _uniqueRoomService;
 
         private GridModel _gridModel;
         private GridView _gridView;
@@ -30,7 +31,8 @@ namespace Grid
             RoomSelectionService roomSelectionService,
             GridStateService gridStateService,
             ConnectionValidationService connectionValidationService,
-            UIVisualFeedbackService visualFeedbackService)
+            UIVisualFeedbackService visualFeedbackService,
+            UniqueRoomService uniqueRoomService)
         {
             _prefabContainer = prefabContainer;
             _uiRootProvider = uiRootProvider;
@@ -38,6 +40,7 @@ namespace Grid
             _gridStateService = gridStateService;
             _connectionValidationService = connectionValidationService;
             _visualFeedbackService = visualFeedbackService;
+            _uniqueRoomService = uniqueRoomService;
         }
 
         public void Initialize()
@@ -116,6 +119,7 @@ namespace Grid
                 _gridStateService,
                 _connectionValidationService,
                 _visualFeedbackService,
+                _uniqueRoomService,
                 _gridView.CellContainer
             );
 

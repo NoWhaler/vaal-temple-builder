@@ -19,6 +19,7 @@ namespace Grid
         private GridStateService _gridStateService;
         private ConnectionValidationService _connectionValidationService;
         private UIVisualFeedbackService _visualFeedbackService;
+        private UniqueRoomService _uniqueRoomService;
         private Transform _parent;
 
         public GridCellPresenter(
@@ -28,6 +29,7 @@ namespace Grid
             GridStateService gridStateService,
             ConnectionValidationService connectionValidationService,
             UIVisualFeedbackService visualFeedbackService,
+            UniqueRoomService uniqueRoomService,
             Transform parent)
         {
             _model = model;
@@ -36,6 +38,7 @@ namespace Grid
             _gridStateService = gridStateService;
             _connectionValidationService = connectionValidationService;
             _visualFeedbackService = visualFeedbackService;
+            _uniqueRoomService = uniqueRoomService;
             _parent = parent;
         }
 
@@ -106,6 +109,8 @@ namespace Grid
             _view.OnCellClicked += HandleCellClick;
             _view.OnCellHoverEnter += HandleCellHoverEnter;
             _view.OnCellHoverExit += HandleCellHoverExit;
+
+            _uniqueRoomService.OnRoomEraseRequested += HandleRoomEraseRequested;
         }
 
         private void UnsubscribeFromViewEvents()
@@ -117,6 +122,8 @@ namespace Grid
             _view.OnCellHoverExit -= HandleCellHoverExit;
 
             _visualFeedbackService.UnregisterElement(_view.transform);
+
+            _uniqueRoomService.OnRoomEraseRequested -= HandleRoomEraseRequested;
         }
 
         private void HandleCellClick(PointerEventData.InputButton button)
@@ -158,11 +165,22 @@ namespace Grid
                 return;
             }
 
+            _uniqueRoomService.HandleUniqueRoomPlacement(selectedRoom);
+
             UnityEngine.Sprite icon = _roomSelectionService.SelectedRoomIcon;
 
             _view.PlaceRoom(icon);
             _gridStateService.PlaceRoom(_model.X, _model.Y, selectedRoom);
             Debug.Log($"Placed {selectedRoom} at cell ({_model.X}, {_model.Y})");
+        }
+
+        private void HandleRoomEraseRequested(int x, int y)
+        {
+            if (_model.X == x && _model.Y == y)
+            {
+                _view.EraseRoom();
+                Debug.Log($"Erased unique room from cell ({_model.X}, {_model.Y}) due to placement elsewhere");
+            }
         }
 
         private void HandleRightClick()

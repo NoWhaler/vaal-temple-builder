@@ -141,5 +141,18 @@ namespace Services
 
             return chainRooms;
         }
+
+        public Vector2Int? FindRoomPosition(RoomType roomType)
+        {
+            foreach (KeyValuePair<Vector2Int, RoomType> placedRoom in _placedRooms)
+            {
+                if (placedRoom.Value == roomType)
+                {
+                    return placedRoom.Key;
+                }
+            }
+
+            return null;
+        }
     }
 }
