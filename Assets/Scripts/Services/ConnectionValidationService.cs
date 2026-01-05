@@ -97,6 +97,7 @@ namespace Services
             }
 
             List<Vector2Int> adjacentPositions = _gridStateService.GetAdjacentPositions(x, y);
+            bool hasAtLeastOneValidConnection = false;
 
             foreach (Vector2Int adjacentPosition in adjacentPositions)
             {
@@ -104,7 +105,13 @@ namespace Services
 
                 if (adjacentRoomType.HasValue)
                 {
+                    if (!_roomConnectionService.CanConnect(roomType, adjacentRoomType.Value))
+                    {
+                        continue;
+                    }
+
                     List<RoomCountRestriction> adjacentRestrictions = _roomConnectionService.GetCountRestrictions(adjacentRoomType.Value);
+                    bool canAcceptConnection = true;
 
                     foreach (RoomCountRestriction restriction in adjacentRestrictions)
                     {
@@ -114,36 +121,26 @@ namespace Services
 
                             if (currentCount >= restriction.MaxAdjacentCount)
                             {
-                                return true;
+                                canAcceptConnection = false;
+                                break;
                             }
                         }
+                    }
+
+                    if (canAcceptConnection)
+                    {
+                        hasAtLeastOneValidConnection = true;
                     }
                 }
             }
 
-            return false;
+            return !hasAtLeastOneValidConnection;
         }
 
         private bool HasChainExclusionViolation(int x, int y, RoomType roomType)
         {
-            List<Vector2Int> adjacentPositions = _gridStateService.GetAdjacentPositions(x, y);
-            HashSet<RoomType> chainRooms = new HashSet<RoomType>();
-
-            foreach (Vector2Int adjacentPosition in adjacentPositions)
-            {
-                if (_gridStateService.HasRoom(adjacentPosition.x, adjacentPosition.y))
-                {
-                    List<RoomType> connectedChain = _gridStateService.GetConnectedChain(adjacentPosition.x, adjacentPosition.y);
-
-                    foreach (RoomType chainRoom in connectedChain)
-                    {
-                        chainRooms.Add(chainRoom);
-                    }
-                }
-            }
-
-            List<RoomType> chainRoomsList = new List<RoomType>(chainRooms);
-            return _roomConnectionService.HasChainExclusionViolation(roomType, chainRoomsList);
+            List<RoomType> adjacentRooms = _gridStateService.GetAdjacentRooms(x, y);
+            return _roomConnectionService.HasChainExclusionViolation(roomType, adjacentRooms);
         }
 
         public int GetValidConnectionCount(int x, int y, RoomType roomType)
