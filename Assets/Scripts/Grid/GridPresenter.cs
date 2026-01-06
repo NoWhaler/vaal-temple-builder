@@ -19,6 +19,8 @@ namespace Grid
         private UIVisualFeedbackService _visualFeedbackService;
         private UniqueRoomService _uniqueRoomService;
         private RoomConnectionService _roomConnectionService;
+        private TooltipPresenter _tooltipPresenter;
+        private RoomHighlightService _roomHighlightService;
 
         private GridModel _gridModel;
         private GridView _gridView;
@@ -34,7 +36,9 @@ namespace Grid
             ConnectionValidationService connectionValidationService,
             UIVisualFeedbackService visualFeedbackService,
             UniqueRoomService uniqueRoomService,
-            RoomConnectionService roomConnectionService)
+            RoomConnectionService roomConnectionService,
+            TooltipPresenter tooltipPresenter,
+            RoomHighlightService roomHighlightService)
         {
             _prefabContainer = prefabContainer;
             _uiRootProvider = uiRootProvider;
@@ -44,6 +48,8 @@ namespace Grid
             _visualFeedbackService = visualFeedbackService;
             _uniqueRoomService = uniqueRoomService;
             _roomConnectionService = roomConnectionService;
+            _tooltipPresenter = tooltipPresenter;
+            _roomHighlightService = roomHighlightService;
         }
 
         public void Initialize()
@@ -125,6 +131,8 @@ namespace Grid
                 _visualFeedbackService,
                 _uniqueRoomService,
                 _roomConnectionService,
+                _tooltipPresenter,
+                _roomHighlightService,
                 _gridView.CellContainer
             );
 

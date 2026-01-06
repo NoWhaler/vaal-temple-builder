@@ -1,6 +1,7 @@
 using ScriptableObjects;
 using Services;
 using UnityEngine;
+using VaalTempleBuilder;
 using Zenject;
 
 namespace Installers
@@ -16,6 +17,7 @@ namespace Installers
             Container.Bind<RoomConnectionService>().AsSingle().NonLazy();
             Container.Bind<ConnectionValidationService>().AsSingle().NonLazy();
             Container.Bind<UniqueRoomService>().AsSingle().NonLazy();
+            Container.Bind<RoomHighlightService>().AsSingle().NonLazy();
         }
     }
 }

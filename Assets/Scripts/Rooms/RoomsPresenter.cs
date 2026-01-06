@@ -14,6 +14,8 @@ namespace Rooms
         private UIRootProvider _uiRootProvider;
         private RoomSelectionService _roomSelectionService;
         private UIVisualFeedbackService _visualFeedbackService;
+        private TooltipPresenter _tooltipPresenter;
+        private RoomHighlightService _roomHighlightService;
 
         private RoomsModel _model;
         private RoomsView _view;
@@ -22,17 +24,24 @@ namespace Rooms
         private readonly Dictionary<RoomView, RoomHoverHandler> _roomHoverHandlers = new Dictionary<RoomView, RoomHoverHandler>();
         private RoomView _currentlySelectedRoomView;
 
+        private readonly HashSet<RoomView> _autoHighlightedRooms = new HashSet<RoomView>();
+        private readonly HashSet<RoomView> _manuallyHoveredRooms = new HashSet<RoomView>();
+
         [Inject]
         private void Inject(
             PrefabContainer prefabContainer,
             UIRootProvider uiRootProvider,
             RoomSelectionService roomSelectionService,
-            UIVisualFeedbackService visualFeedbackService)
+            UIVisualFeedbackService visualFeedbackService,
+            TooltipPresenter tooltipPresenter,
+            RoomHighlightService roomHighlightService)
         {
             _prefabContainer = prefabContainer;
             _uiRootProvider = uiRootProvider;
             _roomSelectionService = roomSelectionService;
             _visualFeedbackService = visualFeedbackService;
+            _tooltipPresenter = tooltipPresenter;
+            _roomHighlightService = roomHighlightService;
         }
 
         public void Initialize()
@@ -41,11 +50,13 @@ namespace Rooms
 
             SpawnView();
             SubscribeToViewEvents();
+            SubscribeToServiceEvents();
         }
 
         public void Dispose()
         {
             UnsubscribeFromViewEvents();
+            UnsubscribeFromServiceEvents();
 
             if (_view != null)
             {
@@ -116,6 +127,18 @@ namespace Rooms
             _roomHoverHandlers.Clear();
         }
 
+        private void SubscribeToServiceEvents()
+        {
+            _roomHighlightService.OnRoomsHighlightRequested += HandleRoomsHighlightRequested;
+            _roomHighlightService.OnRoomsHighlightCleared += HandleRoomsHighlightCleared;
+        }
+
+        private void UnsubscribeFromServiceEvents()
+        {
+            _roomHighlightService.OnRoomsHighlightRequested -= HandleRoomsHighlightRequested;
+            _roomHighlightService.OnRoomsHighlightCleared -= HandleRoomsHighlightCleared;
+        }
+
         private void HandleRoomClick(RoomView roomView)
         {
             RoomType clickedRoomType = roomView.RoomType;
@@ -146,12 +169,49 @@ namespace Rooms
 
         private void HandleRoomHoverEnter(RoomView roomView)
         {
+            _manuallyHoveredRooms.Add(roomView);
             _visualFeedbackService.SetHovered(roomView.transform, true);
+            _tooltipPresenter.ShowTooltip(roomView.RoomType, roomView.transform.position);
         }
 
         private void HandleRoomHoverExit(RoomView roomView)
         {
+            _manuallyHoveredRooms.Remove(roomView);
             _visualFeedbackService.SetHovered(roomView.transform, false);
+            _tooltipPresenter.HideTooltip();
+        }
+
+        private void HandleRoomsHighlightRequested(List<RoomType> roomTypes)
+        {
+            if (_view == null) return;
+
+            _autoHighlightedRooms.Clear();
+
+            foreach (RoomType roomType in roomTypes)
+            {
+                if (_view.Rooms.TryGetValue(roomType, out RoomView roomView))
+                {
+                    _autoHighlightedRooms.Add(roomView);
+
+                    if (!_manuallyHoveredRooms.Contains(roomView))
+                    {
+                        _visualFeedbackService.SetHovered(roomView.transform, true);
+                    }
+                }
+            }
+        }
+
+        private void HandleRoomsHighlightCleared()
+        {
+            foreach (RoomView roomView in _autoHighlightedRooms)
+            {
+                if (!_manuallyHoveredRooms.Contains(roomView))
+                {
+                    _visualFeedbackService.SetHovered(roomView.transform, false);
+                }
+            }
+
+            _autoHighlightedRooms.Clear();
         }
 
         private class RoomClickHandler

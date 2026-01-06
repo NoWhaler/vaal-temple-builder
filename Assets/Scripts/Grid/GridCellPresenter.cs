@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Enums;
 using ScriptableObjects;
 using Services;
@@ -21,6 +22,8 @@ namespace Grid
         private UIVisualFeedbackService _visualFeedbackService;
         private UniqueRoomService _uniqueRoomService;
         private RoomConnectionService _roomConnectionService;
+        private TooltipPresenter _tooltipPresenter;
+        private RoomHighlightService _roomHighlightService;
         private Transform _parent;
 
         public GridCellPresenter(
@@ -32,6 +35,8 @@ namespace Grid
             UIVisualFeedbackService visualFeedbackService,
             UniqueRoomService uniqueRoomService,
             RoomConnectionService roomConnectionService,
+            TooltipPresenter tooltipPresenter,
+            RoomHighlightService roomHighlightService,
             Transform parent)
         {
             _model = model;
@@ -42,6 +47,8 @@ namespace Grid
             _visualFeedbackService = visualFeedbackService;
             _uniqueRoomService = uniqueRoomService;
             _roomConnectionService = roomConnectionService;
+            _tooltipPresenter = tooltipPresenter;
+            _roomHighlightService = roomHighlightService;
             _parent = parent;
         }
 
@@ -276,14 +283,64 @@ namespace Grid
             return count;
         }
 
+        private List<RoomType> GetValidRoomTypes()
+        {
+            List<RoomType> validRoomTypes = new List<RoomType>();
+            RoomType[] allRoomTypes = (RoomType[])System.Enum.GetValues(typeof(RoomType));
+
+            foreach (RoomType roomType in allRoomTypes)
+            {
+                if (roomType == RoomType.ArchitectRestricted)
+                {
+                    continue;
+                }
+
+                if (_connectionValidationService.CanPlaceRoom(_model.X, _model.Y, roomType))
+                {
+                    validRoomTypes.Add(roomType);
+                }
+            }
+
+            return validRoomTypes;
+        }
+
         private void HandleCellHoverEnter()
         {
             _visualFeedbackService.SetHovered(_view.transform, true);
+
+            if (_view.HasRoom)
+            {
+                RoomType? roomType = _gridStateService.GetRoom(_model.X, _model.Y);
+                if (roomType.HasValue)
+                {
+                    _tooltipPresenter.ShowTooltip(roomType.Value, _view.transform.position);
+                }
+            }
+            else
+            {
+                if (_gridStateService.HasAdjacentRoom(_model.X, _model.Y) && !_model.IsStartCell)
+                {
+                    List<RoomType> validRoomTypes = GetValidRoomTypes();
+                    if (validRoomTypes.Count > 0)
+                    {
+                        _roomHighlightService.RequestHighlight(validRoomTypes);
+                    }
+                }
+            }
         }
 
         private void HandleCellHoverExit()
         {
             _visualFeedbackService.SetHovered(_view.transform, false);
+
+            if (_view.HasRoom)
+            {
+                _tooltipPresenter.HideTooltip();
+            }
+            else
+            {
+                _roomHighlightService.ClearHighlight();
+            }
         }
     }
 }
