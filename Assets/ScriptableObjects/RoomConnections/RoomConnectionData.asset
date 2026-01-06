@@ -14,21 +14,39 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ScriptableObjects.RoomConnectionData
   _connectionRules:
   - _roomType: 14
+    _roomIcon: {fileID: 0}
+    _roomName: Spymaster
+    _description: 
     _connectsTo: 0600000010000000
+    _upgradesOtherRooms: 06000000
+    _upgradedByOtherRooms: 
+    _effectRooms: 0600000007000000000000000b00000005000000
     _countRestrictions:
     - _restrictedRoomType: 6
       _maxAdjacentCount: 4
     _chainExclusions:
     - _excludedRoomType: 3
   - _roomType: 3
+    _roomIcon: {fileID: 0}
+    _roomName: Commander
+    _description: 
     _connectsTo: 0600000010000000
+    _upgradesOtherRooms: 06000000
+    _upgradedByOtherRooms: 06000000
+    _effectRooms: 
     _countRestrictions:
     - _restrictedRoomType: 6
       _maxAdjacentCount: 4
     _chainExclusions:
     - _excludedRoomType: 14
   - _roomType: 6
+    _roomIcon: {fileID: 0}
+    _roomName: Garrison
+    _description: 
     _connectsTo: 03000000100000000b0000000e00000002000000
+    _upgradesOtherRooms: 03000000
+    _upgradedByOtherRooms: 0200000006000000
+    _effectRooms: 
     _countRestrictions:
     - _restrictedRoomType: 14
       _maxAdjacentCount: 1
@@ -40,7 +58,13 @@ MonoBehaviour:
       _maxAdjacentCount: 4
     _chainExclusions: []
   - _roomType: 2
+    _roomIcon: {fileID: 0}
+    _roomName: Armoury
+    _description: 
     _connectsTo: 06000000100000000a00000000000000
+    _upgradesOtherRooms: 06000000
+    _upgradedByOtherRooms: 000000000a000000
+    _effectRooms: 
     _countRestrictions:
     - _restrictedRoomType: 6
       _maxAdjacentCount: 4
@@ -50,7 +74,13 @@ MonoBehaviour:
       _maxAdjacentCount: 4
     _chainExclusions: []
   - _roomType: 10
+    _roomIcon: {fileID: 0}
+    _roomName: Smithy
+    _description: 
     _connectsTo: 020000000800000010000000
+    _upgradesOtherRooms: 02000000
+    _upgradedByOtherRooms: 0800000007000000
+    _effectRooms: 
     _countRestrictions:
     - _restrictedRoomType: 2
       _maxAdjacentCount: 4
@@ -58,7 +88,13 @@ MonoBehaviour:
       _maxAdjacentCount: 4
     _chainExclusions: []
   - _roomType: 7
+    _roomIcon: {fileID: 0}
+    _roomName: Generator
+    _description: 
     _connectsTo: 10000000
+    _upgradesOtherRooms: 0a000000080000000b00000006000000
+    _upgradedByOtherRooms: 0c00000009000000
+    _effectRooms: 
     _countRestrictions:
     - _restrictedRoomType: 12
       _maxAdjacentCount: 4
@@ -68,13 +104,25 @@ MonoBehaviour:
       _maxAdjacentCount: 4
     _chainExclusions: []
   - _roomType: 8
+    _roomIcon: {fileID: 0}
+    _roomName: Golem Works
+    _description: 
     _connectsTo: 0a00000010000000
+    _upgradesOtherRooms: 0a000000
+    _upgradedByOtherRooms: 07000000
+    _effectRooms: 0600000002000000030000000a000000
     _countRestrictions:
     - _restrictedRoomType: 10
       _maxAdjacentCount: 4
     _chainExclusions: []
   - _roomType: 11
+    _roomIcon: {fileID: 0}
+    _roomName: Synthflesh
+    _description: 
     _connectsTo: 050000000600000010000000
+    _upgradesOtherRooms: 0500000006000000
+    _upgradedByOtherRooms: 0700000005000000
+    _effectRooms: 
     _countRestrictions:
     - _restrictedRoomType: 5
       _maxAdjacentCount: 4
@@ -82,13 +130,25 @@ MonoBehaviour:
       _maxAdjacentCount: 4
     _chainExclusions: []
   - _roomType: 5
+    _roomIcon: {fileID: 0}
+    _roomName: Flesh Surgeon
+    _description: 
     _connectsTo: 0b00000010000000
+    _upgradesOtherRooms: 0b000000
+    _upgradedByOtherRooms: 0b000000
+    _effectRooms: 
     _countRestrictions:
     - _restrictedRoomType: 11
       _maxAdjacentCount: 4
     _chainExclusions: []
   - _roomType: 0
+    _roomIcon: {fileID: 0}
+    _roomName: Alchemy Lab
+    _description: 
     _connectsTo: 020000000c00000010000000
+    _upgradesOtherRooms: 02000000
+    _upgradedByOtherRooms: 0c000000
+    _effectRooms: 
     _countRestrictions:
     - _restrictedRoomType: 2
       _maxAdjacentCount: 4
@@ -96,7 +156,13 @@ MonoBehaviour:
       _maxAdjacentCount: 4
     _chainExclusions: []
   - _roomType: 12
+    _roomIcon: {fileID: 0}
+    _roomName: Thaumaturge
+    _description: 
     _connectsTo: 00000000090000000400000010000000
+    _upgradesOtherRooms: 070000000000000004000000
+    _upgradedByOtherRooms: 09000000
+    _effectRooms: 04000000090000000d000000
     _countRestrictions:
     - _restrictedRoomType: 9
       _maxAdjacentCount: 1
@@ -106,7 +172,13 @@ MonoBehaviour:
       _maxAdjacentCount: 4
     _chainExclusions: []
   - _roomType: 4
+    _roomIcon: {fileID: 0}
+    _roomName: Corruption Chamber
+    _description: 
     _connectsTo: 090000000c00000010000000
+    _upgradesOtherRooms: 
+    _upgradedByOtherRooms: 090000000c000000
+    _effectRooms: 
     _countRestrictions:
     - _restrictedRoomType: 12
       _maxAdjacentCount: 1
@@ -114,7 +186,13 @@ MonoBehaviour:
       _maxAdjacentCount: 1
     _chainExclusions: []
   - _roomType: 9
+    _roomIcon: {fileID: 0}
+    _roomName: Sacrificial Chamber
+    _description: 
     _connectsTo: 040000000c00000010000000
+    _upgradesOtherRooms: 070000000c00000004000000
+    _upgradedByOtherRooms: 
+    _effectRooms: 
     _countRestrictions:
     - _restrictedRoomType: 12
       _maxAdjacentCount: 4
@@ -122,10 +200,22 @@ MonoBehaviour:
       _maxAdjacentCount: 4
     _chainExclusions: []
   - _roomType: 13
+    _roomIcon: {fileID: 0}
+    _roomName: Sealed Vault
+    _description: 
     _connectsTo: 10000000
+    _upgradesOtherRooms: 
+    _upgradedByOtherRooms: 
+    _effectRooms: 
     _countRestrictions: []
     _chainExclusions: []
   - _roomType: 16
+    _roomIcon: {fileID: 0}
+    _roomName: Road
+    _description: 
     _connectsTo: 10000000
+    _upgradesOtherRooms: 
+    _upgradedByOtherRooms: 
+    _effectRooms: 
     _countRestrictions: []
     _chainExclusions: []
